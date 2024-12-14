@@ -17,6 +17,7 @@ Description: The fda.clust package offers specialized clustering methods for fun
 License: GPL-2
 URL: https://github.com/moviedo5/fda.clust, https://moviedo5.github.io/fda.clust/
 BugReports: https://github.com/moviedo5/fda.usc/issues
+License: GPL-2
 LazyLoad: yes
 NeedsCompilation: yes
 Repository: CRAN

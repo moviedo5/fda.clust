@@ -45,6 +45,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/moviedo5/fda.usc/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -128,7 +129,7 @@
 </h2>
 <p>Below is an example demonstrating how to use the <strong>fkmeans</strong> function for clustering functional data.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">fda.clust</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/moviedo5/fda.clust" class="external-link">fda.clust</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Load the example dataset ECG200</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ECG200</span><span class="op">)</span></span>
@@ -320,6 +321,7 @@ R-wind-builder fda.clust_0.1.1.tar.gz --as-cran
 R CMD build --resave-data fda.clust
 
 R CMD Rd2pdf fda.clust
+
 library(pkgdown)
 # usethis::use_pkgdown()
 # Build website:
@@ -333,7 +335,15 @@ devtools::build_vignettes()
 -->
 </div>
 </div>
-  </main><aside class="col-md-3"><div class="license">
+  </main><aside class="col-md-3"><div class="links">
+<h2 data-toc-skip>Links</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/moviedo5/fda.usc/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/moviedo5/fda.usc/issues" class="external-link">Report a bug</a></li>
+</ul>
+</div>
+
+<div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.r-project.org/Licenses/GPL-2" class="external-link">GPL-2</a></li>

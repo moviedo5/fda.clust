@@ -206,6 +206,7 @@ R-wind-builder fda.clust_0.1.1.tar.gz --as-cran
 R CMD build --resave-data fda.clust
      
 R CMD Rd2pdf fda.clust
+
 library(pkgdown)
 # usethis::use_pkgdown()
 # Build website:
