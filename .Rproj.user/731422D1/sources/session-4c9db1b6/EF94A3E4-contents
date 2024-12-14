@@ -59,6 +59,15 @@ plot(ECG200$x, col = result$cluster, main = "ECG200 Clustered with fkmeans")
 
 ---
 
+## **Reference**
+
+To learn more about the functions and their usage, you can refer to the **pkgdown** documentation site. The reference section contains all the available functions for clustering, simulation, and utilities.
+
+- [**Function Reference**](https://moviedo5.github.io/fda.clust/reference/index.html): Browse the complete list of available functions and their descriptions.
+
+---
+
+
 ## **Datasets**
 
 The package includes three functional datasets to test clustering methods:
@@ -180,6 +189,8 @@ devtools::install()
 
 #  setwd("C:/Users/Manuel Oviedo/github")
 build_manual(pkg = "fda.clust", path = NULL)
+unlink(file.path(tempdir(), "lastMiKTeXException"))
+unlink(tempdir(), recursive = TRUE)
 
 devtools::install_github("moviedo5/fda.usc",auth_user="moviedo5")
 # devtools::install_github("moviedo5/fda.usc",auth_user="moviedo5")
@@ -195,5 +206,7 @@ library(pkgdown)
 # Build website:
 #pkgdown::build_site()
 build_site(new_process = TRUE)
+
+devtools::build_vignettes()
 -->
 
