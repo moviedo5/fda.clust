@@ -185,6 +185,12 @@ tools::checkRd("man/ECG5000.Rd")
 tools::checkRd("man/ECG200.Rd")
 tools::checkRd("man/growth_ldata.Rd")
 
+# 1. Inicializar la web del paquete
+library(pkgdown)
+pkgdown::init_site()
+
+# 2. Construir la web
+pkgdown::build_site()
 
 # Step 1: Update documentation and vignettes
 devtools::document()
