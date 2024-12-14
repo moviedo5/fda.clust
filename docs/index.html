@@ -55,6 +55,7 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="fdaclust">fda.clust<a class="anchor" aria-label="anchor" href="#fdaclust"></a>
 </h1></div>
+<p><a href="https://www.gnu.org/licenses/gpl-2.0.en.html" class="external-link"><img src="https://img.shields.io/badge/licence-GPL--2-blue.svg" alt="Licence"></a></p>
 <p>The <code>fda.clust</code> package provides specialized methods for clustering functional data, inspired by the functional data analysis (FDA) framework. This package offers tools for clustering, validation, and visualization of functional data. It allows users to work with real and simulated datasets for performance evaluation of clustering methods.</p>
 <div class="section level2">
 <h2 id="features">
@@ -141,17 +142,6 @@
 <hr>
 </div>
 <div class="section level2">
-<h2 id="reference">
-<strong>Reference</strong><a class="anchor" aria-label="anchor" href="#reference"></a>
-</h2>
-<p>To learn more about the functions and their usage, you can refer to the <strong>pkgdown</strong> documentation site. The reference section contains all the available functions for clustering, simulation, and utilities.</p>
-<ul>
-<li>
-<a href="https://moviedo5.github.io/fda.clust/reference/index.html" class="external-link"><strong>Function Reference</strong></a>: Browse the complete list of available functions and their descriptions.</li>
-</ul>
-<hr>
-</div>
-<div class="section level2">
 <h2 id="datasets">
 <strong>Datasets</strong><a class="anchor" aria-label="anchor" href="#datasets"></a>
 </h2>
@@ -228,6 +218,13 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"Introduction"</span>, package <span class="op">=</span> <span class="st">"fda.clust"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"Simulations"</span>, package <span class="op">=</span> <span class="st">"fda.clust"</span><span class="op">)</span></span></code></pre></div>
+<p>Details on specific functions are in the <a href="https://github.com/moviedo5/fda.usc/blob/master/docs/fda.usc-manual.pdf" class="external-link">reference manual</a>.</p>
+<p>To learn more about the functions and their usage, you can refer to the <strong>pkgdown</strong> documentation site. The reference section contains all the available functions for clustering, simulation, and utilities.</p>
+<ul>
+<li>
+<a href="https://moviedo5.github.io/fda.clust/reference/index.html"><strong>Function Reference</strong></a>: Browse the complete list of available functions and their descriptions.</li>
+</ul>
+<hr>
 <hr>
 </div>
 <div class="section level2">
@@ -328,6 +325,11 @@ library(pkgdown)
 # Build website:
 #pkgdown::build_site()
 build_site(new_process = TRUE)
+
+devtools::build_vignettes()
+#unlink("inst/doc", recursive = TRUE)
+#devtools::build_vignettes()
+
 -->
 </div>
 </div>
