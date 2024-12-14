@@ -5,13 +5,17 @@
 <url><loc>/articles/Simulations.html</loc></url>
 <url><loc>/authors.html</loc></url>
 <url><loc>/index.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
 <url><loc>/news/index.html</loc></url>
+<url><loc>/reference/ECG200.html</loc></url>
+<url><loc>/reference/ECG5000.html</loc></url>
 <url><loc>/reference/fclust.measures.html</loc></url>
 <url><loc>/reference/fdbscan.html</loc></url>
 <url><loc>/reference/fhclust.html</loc></url>
 <url><loc>/reference/fhcust.html</loc></url>
 <url><loc>/reference/fkmeans.html</loc></url>
 <url><loc>/reference/fmeanshift.html</loc></url>
+<url><loc>/reference/growth_ldata.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/rproc2clust.html</loc></url>
 <url><loc>/reference/rproc2mu.html</loc></url>

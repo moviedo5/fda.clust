@@ -1,7 +1,4 @@
-#' @importFrom graphics lines points
-#' @importFrom stats hclust as.dist quantile
-#' @import fda.usc
-#' @importFrom fda.usc metric.lp
+
 #' 
 # @name fkmeans
 #' @rdname fkmeans 

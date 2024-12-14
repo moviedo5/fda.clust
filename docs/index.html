@@ -36,7 +36,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="articles/Introduction.html">fda.clust: Clustering Functional Data</a></li>
-    <li><a class="dropdown-item" href="articles/Simulations.html">Simulating Functional Data for Clustering with `fda.clust`</a></li>
+    <li><a class="dropdown-item" href="articles/Simulations.html">Simulating Functional Data with fda.clust</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
@@ -52,76 +52,193 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><p><code>fda.clust</code> (Version 0.1.1) Clustering Methods for Functional Data Analysis ================</p>
-<!-- README.Rmd is compiled to README.md. Please edit README.Rmd and then knit to update README.md -->
-<!-- Badges -->
-<p><a href="https://www.gnu.org/licenses/gpl-2.0.en.html" class="external-link"><img src="https://img.shields.io/badge/licence-GPL--2-blue.svg" alt="Licence"></a></p>
-<!-- Logo -->
-<p><img src="inst/figures/fda.clust.png" alt="Logo fda.clust" align="right" width="140"></p>
-<p><code>fda.clust</code> is a development package that provides specialized methods for clustering functional data. Inspired by the functional data analysis framework, this package applies and adapts clustering techniques—such as functional k-means, hierarchical clustering, and mixture models—to the continuous nature of functional data. Additionally, it includes tools for cluster visualization and result validation.</p>
-<p>Version <code>0.1.1</code> is the first development release, focusing on implementing the main methods and establishing the basic framework for functional clustering.</p>
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="fdaclust">fda.clust<a class="anchor" aria-label="anchor" href="#fdaclust"></a>
+</h1></div>
+<p>The <code>fda.clust</code> package provides specialized methods for clustering functional data, inspired by the functional data analysis (FDA) framework. This package offers tools for clustering, validation, and visualization of functional data. It allows users to work with real and simulated datasets for performance evaluation of clustering methods.</p>
 <div class="section level2">
-<h2 id="package-overview">Package Overview<a class="anchor" aria-label="anchor" href="#package-overview"></a>
+<h2 id="features">
+<strong>Features</strong><a class="anchor" aria-label="anchor" href="#features"></a>
 </h2>
-<p>The <code>fda.clust</code> package offers:</p>
 <ul>
 <li>
-<strong>Functional clustering methods</strong>:
+<strong>Clustering Methods</strong>:
 <ul>
-<li>functional k-means,</li>
-<li>hierarchical clustering,</li>
-<li>functional dbscan.</li>
+<li>
+<code>fkmeans</code>: Functional k-means clustering.</li>
+<li>
+<code>fdbscan</code>: Functional DBSCAN clustering.</li>
+<li>
+<code>fmeanshift</code>: Functional mean-shift clustering.</li>
+<li>
+<code>fhclust</code>: Functional hierarchical clustering.</li>
 </ul>
 </li>
 <li>
-<strong>Visualization tools</strong>: Plots and graphical representations to explore and understand the resulting clusters.</li>
+<strong>Validation Metrics</strong>:
+<ul>
 <li>
-<strong>Cluster validation</strong>: Metrics for evaluating the quality and stability of the obtained partitions.</li>
+<strong>Silhouette</strong>: Measure of cohesion and separation.</li>
+<li>
+<strong>Dunn</strong>: Ratio of the smallest inter-cluster distance to the largest intra-cluster distance.</li>
+<li>
+<strong>Davies-Bouldin</strong>: Average similarity between clusters.</li>
+<li>
+<strong>Calinski-Harabasz</strong>: Ratio of between-cluster dispersion to within-cluster dispersion.</li>
 </ul>
-<p>The goal is to provide a comprehensive toolbox for users interested in segmenting functional data—be it for research or for applying advanced statistical methodologies in real-world problems.</p>
+</li>
+<li>
+<strong>Data Simulation</strong>:
+<ul>
+<li>
+<code>rprocKclust</code>: Simulate functional data for a predefined number of clusters.</li>
+<li>
+<code>rprocKmu</code>: Simulate mean functions for multiple clusters.</li>
+</ul>
+</li>
+<li>
+<strong>Datasets</strong>:
+<ul>
+<li>
+<strong>ECG200</strong>: 200 heartbeats classified as normal or myocardial infarction.</li>
+<li>
+<strong>ECG5000</strong>: 5000 heartbeats classified into four groups.</li>
+<li>
+<strong>growth_ldata</strong>: Longitudinal growth data from the Berkeley Growth Study.</li>
+</ul>
+</li>
+</ul>
+<hr>
 </div>
 <div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+<h2 id="installation">
+<strong>Installation</strong><a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>Once available, you can install the development version of <code>fda.clust</code> from GitHub. For example:</p>
+<p>To install the development version from GitHub, run the following command in R:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("devtools") # if you don't have it already</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"username/fda.clust"</span><span class="op">)</span></span>
-<span><span class="co"># Or:</span></span>
-<span><span class="co"># remotes::install_github("username/fda.clust")</span></span></code></pre></div>
-<p>##Example</p>
-<p>Below is a simple example that shows how you might load the package and apply a clustering method (note: this is a placeholder and may need adjustment once the functions are implemented):</p>
+<code class="sourceCode R"><span><span class="co"># Install the development version from GitHub</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"devtools"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"moviedo5/fda.clust"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="usage">
+<strong>Usage</strong><a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
+<p>Below is an example demonstrating how to use the <strong>fkmeans</strong> function for clustering functional data.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">fda.clust</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Suppose 'fd_data' is a functional data object</span></span>
-<span><span class="co"># cluster_result &lt;- fda_clust_kmeans(fd_data, centers = 3)</span></span>
-<span><span class="co"># plot(cluster_result)</span></span></code></pre></div>
+<span><span class="co"># Load the example dataset ECG200</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ECG200</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Perform k-means clustering on functional data with 2 clusters</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fkmeans.html">fkmeans</a></span><span class="op">(</span><span class="va">ECG200</span><span class="op">$</span><span class="va">x</span>, ncl <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot the functional data with cluster assignments</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ECG200</span><span class="op">$</span><span class="va">x</span>, col <span class="op">=</span> <span class="va">result</span><span class="op">$</span><span class="va">cluster</span>, main <span class="op">=</span> <span class="st">"ECG200 Clustered with fkmeans"</span><span class="op">)</span></span></code></pre></div>
+<hr>
 </div>
 <div class="section level2">
-<h2 id="issues--feature-requests">Issues &amp; Feature Requests<a class="anchor" aria-label="anchor" href="#issues--feature-requests"></a>
+<h2 id="datasets">
+<strong>Datasets</strong><a class="anchor" aria-label="anchor" href="#datasets"></a>
 </h2>
-<p>For reporting issues, bugs, feature requests, etc., please use the <a href="https://github.com/moviedo5/fda.clust/issues" class="external-link">Github Issues</a>. Your contributions and feedback are always welcome.</p>
+<p>The package includes three functional datasets to test clustering methods:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>ECG200</strong>: Electrical signals from heartbeats (2 classes: normal and myocardial infarction).</li>
+<li>
+<strong>ECG5000</strong>: A larger dataset of 5000 heartbeats (4 classes).</li>
+<li>
+<strong>growth_ldata</strong>: Longitudinal growth data from the Berkeley Growth Study, including the heights of boys and girls at 31 ages.</li>
+</ol>
+<hr>
 </div>
 <div class="section level2">
-<h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
+<h2 id="available-functions">
+<strong>Available Functions</strong><a class="anchor" aria-label="anchor" href="#available-functions"></a>
 </h2>
-<p>A hands on introduction to can be found in the reference <a href="https://www.jstatsoft.org/index.php/jss/article/view/v051i04/v51i04.pdf" class="external-link">vignette</a>.</p>
+<div class="section level3">
+<h3 id="clustering-methods">
+<strong>Clustering Methods</strong><a class="anchor" aria-label="anchor" href="#clustering-methods"></a>
+</h3>
+<ul>
+<li>
+<strong><code>fkmeans</code></strong>: Perform functional k-means clustering.</li>
+<li>
+<strong><code>fdbscan</code></strong>: Perform functional DBSCAN clustering.</li>
+<li>
+<strong><code>fmeanshift</code></strong>: Perform functional mean-shift clustering.</li>
+<li>
+<strong><code>fhclust</code></strong>: Perform functional hierarchical clustering.</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="cluster-validation-and-measures">
+<strong>Cluster Validation and Measures</strong><a class="anchor" aria-label="anchor" href="#cluster-validation-and-measures"></a>
+</h3>
+<ul>
+<li>
+<strong><code>fclust.measures</code></strong>: Evaluate the quality of clusters using internal indices such as silhouette, Dunn, Davies-Bouldin, and Calinski-Harabasz indices.</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="data-simulation">
+<strong>Data Simulation</strong><a class="anchor" aria-label="anchor" href="#data-simulation"></a>
+</h3>
+<ul>
+<li>
+<strong><code>rprocKclust</code></strong>: Generate functional data with known clusters for testing clustering methods.</li>
+<li>
+<strong><code>rprocKmu</code></strong>: Generate mean functions for multiple clusters.</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="utility-functions">
+<strong>Utility Functions</strong><a class="anchor" aria-label="anchor" href="#utility-functions"></a>
+</h3>
+<ul>
+<li>
+<strong><code>kmeans.assig.groups</code></strong>: Assign functional data to clusters based on distances.</li>
+<li>
+<strong><code>kmeans.centers.update</code></strong>: Update cluster centers during k-means clustering.</li>
+<li>
+<strong><code>kmeans.fd.dist</code></strong>: Calculate distances for functional k-means clustering.</li>
+</ul>
+<hr>
+</div>
 </div>
 <div class="section level2">
-<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<h2 id="documentation">
+<strong>Documentation</strong><a class="anchor" aria-label="anchor" href="#documentation"></a>
+</h2>
+<p>To learn more about the <strong>fda.clust</strong> package, check the vignettes for a more comprehensive overview of its functionalities. You can access the vignettes directly in R:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"Introduction"</span>, package <span class="op">=</span> <span class="st">"fda.clust"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"Simulations"</span>, package <span class="op">=</span> <span class="st">"fda.clust"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="issues--feature-requests">
+<strong>Issues &amp; Feature Requests</strong><a class="anchor" aria-label="anchor" href="#issues--feature-requests"></a>
+</h2>
+<p>For reporting issues, bugs, feature requests, etc., please use the <a href="https://github.com/moviedo5/fda.clust/issues" class="external-link">Github Issues</a> page. Contributions and feedback are always welcome.</p>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="references">
+<strong>References</strong><a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <ul>
-<li>Febrero-Bande, M. and Oviedo de la Fuente, M. (2012). Statistical Computing in Functional Data Analysis: The R Package fda.usc. <em>Journal of Statistical Software</em>, <strong>51</strong>(4):1-28, <a href="http://www.jstatsoft.org/v51/i04/" class="external-link">DOI</a>
-</li>
+<li>Febrero-Bande, M. and Oviedo de la Fuente, M. (2012). Statistical Computing in Functional Data Analysis: The R Package fda.usc. <em>Journal of Statistical Software</em>, <strong>51</strong>(4):1-28, <a href="http://www.jstatsoft.org/v51/i04/" class="external-link">DOI</a>.</li>
 </ul>
 <!--
 # data
 # generador de datos usados en classif.DD/TFM
 fnt.sim() parabola ojo
 Simulacion DF.R estan los tres modelos,
-&#10;# growth
+# growth
 #
 Medidas de bondad del ajuste
 FV2006
@@ -139,7 +256,7 @@ Copiar codigo
 Description: This package provides tools for clustering functional data.
   The clustering methods are based on the use of distances
   between curves.
-&#10;# Regenerar un archivo DESCRIPTIO usethis::use_description()
+# Regenerar un archivo DESCRIPTIO usethis::use_description()
 Detectar caracteres no visibles:
 lines <- readLines("DESCRIPTION")
 print(lines)
@@ -147,7 +264,16 @@ print(lines)
 tools::showNonASCIIfile("DESCRIPTION")
 rm(list = c("rproc2mu"))
 rm(list = c("rproc2clust"))
-&#10;library(roxygen2)
+
+# Limpia los archivos previos
+unlink("NAMESPACE")
+unlink("man", recursive = TRUE)
+
+
+# Genera la documentación y NAMESPACE de nuevo
+devtools::document()
+
+library(roxygen2)
 # setwd("C:/Users/Manuel Oviedo/github/fda.clust")
 getwd()
 #pkgbuild::compile_dll()
@@ -155,24 +281,34 @@ roxygenize()
 devtools::document()
 library(tools)
 tools::checkRd("man/fdbscan.Rd")
-tools::checkRd("man/fhcust.Rd")
 tools::checkRd("man/fmeanshift.Rd")
-tools::checkRd("man/fhcust.Rd")
+tools::checkRd("man/fhclust.Rd")
 tools::checkRd("man/fkmeans.Rd")
-tools::checkRd("man/rproc2mu.Rd")
-tools::checkRd("man/rproc2clust.Rd")
+#tools::checkRd("man/rproc2mu.Rd")
+#tools::checkRd("man/rproc2clust.Rd")
+tools::checkRd("man/fclust.measures.Rd")
+tools::checkRd("man/ECG5000.Rd")
+tools::checkRd("man/ECG200.Rd")
+tools::checkRd("man/growth_ldata.Rd")
+
+
 library(devtools)
 devtools::build()
 devtools::check(manual = TRUE)  # problemas con miktex
 devtools::install()
-&#10;#  setwd("C:/Users/Manuel Oviedo/github")
+
+
+#  setwd("C:/Users/Manuel Oviedo/github")
 build_manual(pkg = "fda.clust", path = NULL)
+
 devtools::install_github("moviedo5/fda.usc",auth_user="moviedo5")
 # devtools::install_github("moviedo5/fda.usc",auth_user="moviedo5")
 R CMD build fda.clust
 R CMD check fda.clust_0.1.1.tar.gz --as-cran
 R CMD INSTALL fda.clust_0.1.1.tar.gz --build
 R-wind-builder fda.clust_0.1.1.tar.gz --as-cran
+R CMD build --resave-data fda.clust
+
 R CMD Rd2pdf fda.clust
 library(pkgdown)
 # usethis::use_pkgdown()
@@ -181,7 +317,7 @@ library(pkgdown)
 build_site(new_process = TRUE)
 -->
 </div>
-
+</div>
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">

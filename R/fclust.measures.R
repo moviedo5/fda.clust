@@ -1,4 +1,3 @@
-library(fda.usc)
 
 #' @title Functional Data Clustering Measures
 #' @description This function computes clustering evaluation measures for functional data objects of class 'fdata'. It supports the calculation of the Dunn, Davies-Bouldin, Calinski-Harabasz, and Silhouette indices. Distances are computed using the metric.lp function from the fda.usc package by default, but users can specify a different distance metric via the 'metric' parameter. Cluster means are calculated using an appropriate function, which can be specified by the user via the 'center_func' argument.
@@ -140,3 +139,5 @@ silhouette_fdata <- function(fdata_obj, clusters, metric) {
   global_silhouette <- mean(silhouette_scores)
   return(global_silhouette)
 }
+
+

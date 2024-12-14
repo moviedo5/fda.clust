@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Simulating Functional Data for Clustering with `fda.clust` • fda.clust</title>
+<title>Simulating Functional Data with fda.clust • fda.clust</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Simulating Functional Data for Clustering with `fda.clust`">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Simulating Functional Data with fda.clust">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -34,7 +34,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/Introduction.html">fda.clust: Clustering Functional Data</a></li>
-    <li><a class="dropdown-item" href="../articles/Simulations.html">Simulating Functional Data for Clustering with `fda.clust`</a></li>
+    <li><a class="dropdown-item" href="../articles/Simulations.html">Simulating Functional Data with fda.clust</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -56,10 +56,11 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Simulating Functional Data for Clustering with `fda.clust`</h1>
-                        <h4 data-toc-skip class="author">Manuel OViedo
+      <h1>Simulating Functional Data with fda.clust</h1>
+                        <h4 data-toc-skip class="author">Manuel Oviedo
 (UDC), Manuel Febrero (USC)</h4>
             
+            <h4 data-toc-skip class="date">2024-12-14</h4>
       
 
       <div class="d-none name"><code>Simulations.Rmd</code></div>
@@ -70,77 +71,162 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The <code>fda.clust</code> package provides tools to simulate
-functional data with specific latent processes and clustering
-structures. This document demonstrates the use of key simulation
-functions: <code>rprocKclust</code>, <code>rprocKmu</code>,
-<code>rproc2clust</code>, and <code>rproc2mu</code>.</p>
+<p>The <code>fda.clust</code> package provides powerful tools for
+clustering functional data. To test and benchmark the performance of
+these clustering methods, it is essential to generate synthetic
+functional data with known properties. This vignette introduces the main
+functions for simulating functional data using <code>fda.clust</code>,
+namely <code><a href="../reference/rprocKclust.html">rprocKclust()</a></code> and <code><a href="../reference/rprocKmu.html">rprocKmu()</a></code>.</p>
+<p>These functions allow users to generate functional data with a
+predefined number of clusters, controlled smoothness, and
+variability.</p>
 </div>
 <div class="section level2">
-<h2 id="simulating-functional-data-for-two-groups-sine-and-cosine-processes">Simulating Functional Data for Two Groups (Sine and Cosine
-Processes)<a class="anchor" aria-label="anchor" href="#simulating-functional-data-for-two-groups-sine-and-cosine-processes"></a>
+<h2 id="simulating-functional-data">Simulating Functional Data<a class="anchor" aria-label="anchor" href="#simulating-functional-data"></a>
 </h2>
-<p>The <code>rproc2clust</code> function generates functional data for
-two distinct groups, each with specific latent processes.</p>
+<p>The <code>fda.clust</code> package offers the following key functions
+for data generation:</p>
+<ul>
+<li>
+<strong><code><a href="../reference/rprocKclust.html">rprocKclust()</a></code></strong>: Simulates functional
+data with a known number of clusters.</li>
+<li>
+<strong><code><a href="../reference/rprocKmu.html">rprocKmu()</a></code></strong>: Simulates mean functions
+for multiple clusters.</li>
+</ul>
+<p>Each function provides a set of parameters that allow control over
+the type, smoothness, and structure of the generated data.</p>
+<div class="section level3">
+<h3 id="generating-data-with-rprockclust">Generating Data with <code>rprocKclust()</code><a class="anchor" aria-label="anchor" href="#generating-data-with-rprockclust"></a>
+</h3>
+<p>The <code><a href="../reference/rprocKclust.html">rprocKclust()</a></code> function generates functional data for
+<code>K</code> clusters. Users can control the number of observations
+per cluster, the type of generating process, and the variability of the
+curves.</p>
+<div class="section level4">
+<h4 id="usage">
+<strong>Usage</strong><a class="anchor" aria-label="anchor" href="#usage"></a>
+</h4>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">fda.clust</span><span class="op">)</span></span>
-<span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span>, length.out <span class="op">=</span> <span class="fl">101</span><span class="op">)</span></span>
-<span><span class="co"># Generate latent processes</span></span>
-<span><span class="va">latent_mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rproc2mu.html">rproc2mu</a></span><span class="op">(</span><span class="va">t</span>, process1 <span class="op">=</span> <span class="st">"sin"</span>, process2 <span class="op">=</span> <span class="st">"cos"</span>, </span>
-<span>                      c.1 <span class="op">=</span> <span class="fl">1</span>, c.2 <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Simulate functional data for two groups</span></span>
-<span><span class="va">group_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rproc2clust.html">rproc2clust</a></span><span class="op">(</span>n.1 <span class="op">=</span> <span class="fl">50</span>, n.2 <span class="op">=</span> <span class="fl">50</span>, </span>
-<span>                          mu.1 <span class="op">=</span> <span class="va">latent_mu</span><span class="op">$</span><span class="va">mu.1</span>, mu.2 <span class="op">=</span> <span class="va">latent_mu</span><span class="op">$</span><span class="va">mu.2</span>, </span>
-<span>                          s.1 <span class="op">=</span> <span class="st">"vexponential"</span>, s.2 <span class="op">=</span> <span class="st">"vexponential"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">group_data</span><span class="op">$</span><span class="va">X</span>, col <span class="op">=</span> <span class="va">group_data</span><span class="op">$</span><span class="va">colors</span>, main <span class="op">=</span> <span class="st">"Two Groups: Sine and Cosine"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">group_data</span><span class="op">$</span><span class="va">X.hat</span>, lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="va">group_data</span><span class="op">$</span><span class="va">color</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Simulations_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rprocKclust.html">rprocKclust</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">n</span>, <span class="va">process</span>, <span class="va">c</span>, <span class="va">s</span><span class="op">)</span></span></code></pre></div>
+<p><strong>Arguments</strong>: - <code>t</code>: A numeric vector
+defining the time points where the functional data is observed. -
+<code>n</code>: A vector specifying the number of curves in each
+cluster. - <code>process</code>: A vector defining the process type for
+each cluster (e.g., “sin”, “cos”, etc.). - <code>c</code>: A numeric
+vector indicating shifts or translations for each cluster. -
+<code>s</code>: A numeric vector controlling the smoothness or
+variability of each cluster.</p>
 </div>
-<div class="section level2">
-<h2 id="simulating-functional-data-for-four-groups-poly1-and-poly2-processes">Simulating Functional Data for Four Groups (Poly1 and Poly2
-Processes)<a class="anchor" aria-label="anchor" href="#simulating-functional-data-for-four-groups-poly1-and-poly2-processes"></a>
-</h2>
-<p>The <code>rprocKclust</code> function creates functional data by
-combining latent processes and noise for multiple groups.</p>
+<div class="section level4">
+<h4 id="example">
+<strong>Example</strong><a class="anchor" aria-label="anchor" href="#example"></a>
+</h4>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, length.out <span class="op">=</span> <span class="fl">101</span><span class="op">)</span></span>
-<span><span class="va">clustering_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rprocKclust.html">rprocKclust</a></span><span class="op">(</span><span class="va">t</span>, </span>
-<span>                               n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">40</span>, <span class="fl">40</span>, <span class="fl">40</span><span class="op">)</span>, </span>
-<span>                               process <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"poly1"</span>, <span class="st">"poly1"</span>, <span class="st">"poly2"</span>, <span class="st">"poly2"</span><span class="op">)</span>, </span>
-<span>                               c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="op">-</span><span class="fl">10</span>, <span class="fl">15</span>, <span class="op">-</span><span class="fl">15</span><span class="op">)</span>, </span>
-<span>                               k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span><span class="op">)</span>, </span>
-<span>                               s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">fda.clust</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Loading required package: fda.usc</span></span></code></pre>
+<pre><code><span><span class="co">## Loading required package: fda</span></span></code></pre>
+<pre><code><span><span class="co">## Loading required package: splines</span></span></code></pre>
+<pre><code><span><span class="co">## Loading required package: fds</span></span></code></pre>
+<pre><code><span><span class="co">## Loading required package: rainbow</span></span></code></pre>
+<pre><code><span><span class="co">## Loading required package: MASS</span></span></code></pre>
+<pre><code><span><span class="co">## Loading required package: pcaPP</span></span></code></pre>
+<pre><code><span><span class="co">## Loading required package: RCurl</span></span></code></pre>
+<pre><code><span><span class="co">## Loading required package: deSolve</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Attaching package: 'fda'</span></span></code></pre>
+<pre><code><span><span class="co">## The following object is masked from 'package:graphics':</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     matplot</span></span></code></pre>
+<pre><code><span><span class="co">## Loading required package: mgcv</span></span></code></pre>
+<pre><code><span><span class="co">## Loading required package: nlme</span></span></code></pre>
+<pre><code><span><span class="co">## This is mgcv 1.9-1. For overview type 'help("mgcv-package")'.</span></span></code></pre>
+<pre><code><span><span class="co">## Loading required package: knitr</span></span></code></pre>
+<pre><code><span><span class="co">##  fda.usc is running sequentially usign foreach package</span></span>
+<span><span class="co">##  Please, execute ops.fda.usc() once to run in local parallel mode</span></span>
+<span><span class="co">##  Deprecated functions: min.basis, min.np, anova.hetero, anova.onefactor, anova.RPm</span></span>
+<span><span class="co">##  New functions: optim.basis, optim.np, fanova.hetero, fanova.onefactor, fanova.RPm</span></span>
+<span><span class="co">## ----------------------------------------------------------------------------------</span></span></code></pre>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span>, length.out <span class="op">=</span> <span class="fl">101</span><span class="op">)</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rprocKclust.html">rprocKclust</a></span><span class="op">(</span><span class="va">t</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">50</span>, <span class="fl">40</span><span class="op">)</span>,</span>
+<span>                   process <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cos_sin"</span>, <span class="st">"sin"</span>, <span class="st">"cos"</span><span class="op">)</span>,</span>
+<span>                   c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                   s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">sim_data</span> <span class="op">&lt;-</span> <span class="va">res</span><span class="op">$</span><span class="va">X</span></span>
+<span><span class="va">group</span> <span class="op">&lt;-</span> <span class="va">res</span><span class="op">$</span><span class="va">groups</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">clustering_data</span><span class="op">$</span><span class="va">X</span>, col <span class="op">=</span> <span class="va">clustering_data</span><span class="op">$</span><span class="va">colors</span>, main <span class="op">=</span> <span class="st">"Four Groups: Poly1 and Poly2"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">clustering_data</span><span class="op">$</span><span class="va">X.hat</span>, lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="va">clustering_data</span><span class="op">$</span><span class="va">color</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Simulations_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sim_data</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">rainbow</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">[</span><span class="va">group</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Simulated Data from rprocKclust"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Simulations_files/figure-html/generate-rprocKclust-1.png" width="672"></p>
+<p>The plot above illustrates the curves generated by
+<code><a href="../reference/rprocKclust.html">rprocKclust()</a></code>, with three distinct clusters, each having
+different shapes, shifts, and variability.</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="generating-mean-functions-with-rprockmu">Generating Mean Functions with <code>rprocKmu()</code><a class="anchor" aria-label="anchor" href="#generating-mean-functions-with-rprockmu"></a>
+</h3>
+<p>The <code><a href="../reference/rprocKmu.html">rprocKmu()</a></code> function generates mean functions for
+<code>K</code> clusters. This is useful for controlling the general
+shape or structure of the curves within each cluster.</p>
+<div class="section level4">
+<h4 id="usage-1">
+<strong>Usage</strong><a class="anchor" aria-label="anchor" href="#usage-1"></a>
+</h4>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rprocKmu.html">rprocKmu</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">process</span>, <span class="va">c</span><span class="op">)</span></span></code></pre></div>
+<p><strong>Arguments</strong>: - <code>t</code>: A numeric vector
+defining the time points where the mean functions are evaluated. -
+<code>process</code>: A vector defining the process type for each
+cluster (e.g., “sin”, “cos”, etc.). - <code>c</code>: A numeric vector
+indicating shifts or translations for each cluster.</p>
+</div>
+<div class="section level4">
+<h4 id="example-1">
+<strong>Example</strong><a class="anchor" aria-label="anchor" href="#example-1"></a>
+</h4>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span>, length.out <span class="op">=</span> <span class="fl">101</span><span class="op">)</span></span>
+<span><span class="va">mean_functions</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rprocKmu.html">rprocKmu</a></span><span class="op">(</span><span class="va">t</span>, process <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cos_sin"</span>, <span class="st">"sin"</span>, <span class="st">"cos"</span><span class="op">)</span>, c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mean_functions</span>, main <span class="op">=</span> <span class="st">"Mean Functions from rprocKmu"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Simulations_files/figure-html/generate-rprocKmu-1.png" width="672"></p>
+<p>The plot above shows the mean functions for three clusters. These
+mean functions are later used in the <code><a href="../reference/rprocKclust.html">rprocKclust()</a></code> function
+to generate actual functional data.</p>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="customizing-simulations">Customizing Simulations<a class="anchor" aria-label="anchor" href="#customizing-simulations"></a>
 </h2>
-<p>The <code>rproc2clust</code> function allows customization of the
-noise structure by specifying parameters such as <code>par.list.1</code>
-and <code>par.list.2</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">par.list.1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="fl">0.8</span>, theta <span class="op">=</span> <span class="fl">0.3</span>, H <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
-<span><span class="va">par.list.2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="fl">0.2</span>, theta <span class="op">=</span> <span class="fl">0.3</span>, H <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">custom_group_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rproc2clust.html">rproc2clust</a></span><span class="op">(</span>n.1 <span class="op">=</span> <span class="fl">50</span>, n.2 <span class="op">=</span> <span class="fl">50</span>, </span>
-<span>                                 mu.1 <span class="op">=</span> <span class="va">latent_mu</span><span class="op">$</span><span class="va">mu.1</span>, </span>
-<span>                                 mu.2 <span class="op">=</span> <span class="va">latent_mu</span><span class="op">$</span><span class="va">mu.2</span>, </span>
-<span>                                 s.1 <span class="op">=</span> <span class="fl">1</span>, s.2 <span class="op">=</span> <span class="fl">1.5</span>, </span>
-<span>                                 par.list.1 <span class="op">=</span> <span class="va">par.list.1</span>, </span>
-<span>                                 par.list.2 <span class="op">=</span> <span class="va">par.list.2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">custom_group_data</span><span class="op">$</span><span class="va">X</span>, col <span class="op">=</span> <span class="va">custom_group_data</span><span class="op">$</span><span class="va">colors</span>, main <span class="op">=</span> <span class="st">"Custom Noise Structure"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">custom_group_data</span><span class="op">$</span><span class="va">X.hat</span>, lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="va">custom_group_data</span><span class="op">$</span><span class="va">color</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Simulations_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<p>The <code><a href="../reference/rprocKclust.html">rprocKclust()</a></code> and <code><a href="../reference/rprocKmu.html">rprocKmu()</a></code> functions
+allow users to customize the following aspects:</p>
+<ul>
+<li>
+<strong>Number of Clusters</strong>: The number of clusters can be
+controlled via the <code>n</code> argument in
+<code><a href="../reference/rprocKclust.html">rprocKclust()</a></code>.</li>
+<li>
+<strong>Types of Functions</strong>: The shape of the curves (e.g.,
+sinusoidal, cosine, etc.) is defined by the <code>process</code>
+argument.</li>
+<li>
+<strong>Smoothness</strong>: The parameter <code>s</code> controls
+the smoothness or variability of the generated curves.</li>
+</ul>
 <!--
 # Conclusion
 
-The `fda.clust` package provides versatile tools for simulating functional data, enabling researchers to explore various clustering scenarios and noise structures. By leveraging the flexibility of these simulation functions, users can create data tailored to their specific analytical needs.
+The `fda.clust` package provides versatile tools for simulating functional data. These data are essential for testing clustering methods and validating the robustness of different clustering algorithms. The main functions, `rprocKclust()` and `rprocKmu()`, offer users extensive control over the structure and variability of the generated data, enabling a wide range of experimental designs for functional clustering.
+
+For more information on the clustering methods themselves, see the relevant vignettes on clustering methods in the `fda.clust` package.
+
+
+
+.
 -->
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
