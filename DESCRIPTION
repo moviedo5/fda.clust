@@ -15,7 +15,7 @@ Suggests:
     rmarkdown
 Description: The fda.clust package offers specialized clustering methods for functional data. It includes algorithms such as functional k-means, hierarchical clustering and mixture models, adapted to the continuous nature of these data. In addition, it provides tools for cluster visualization and validation of results.
 License: GPL-2
-URL: https://github.com/moviedo5/fda.clust, https://moviedo5.github.io/fda.clust/
+URL: https://moviedo5.github.io/fda.clust/, https://github.com/moviedo5/fda.clust
 BugReports: https://github.com/moviedo5/fda.usc/issues
 LazyLoad: yes
 NeedsCompilation: yes

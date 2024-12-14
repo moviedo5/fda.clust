@@ -1,4 +1,4 @@
-# fda.clust
+# fda.clust: Clustering Methods for Functional Data Analysis
 
 [![Licence](https://img.shields.io/badge/licence-GPL--2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.en.html)
 
@@ -101,15 +101,18 @@ To learn more about the **fda.clust** package, check the vignettes for a more co
 vignette("Introduction", package = "fda.clust")
 vignette("Simulations", package = "fda.clust")
 ```
+<!--
 Details on specific functions are in the [reference
-manual](https://github.com/moviedo5/fda.usc/blob/master/docs/fda.usc-manual.pdf).
-
-
+manual](https://github.com/moviedo5/fda.clust/blob/master/docs/fda.clust-manual.pdf).
 To learn more about the functions and their usage, you can refer to the
 **pkgdown** documentation site. The reference section contains all the 
 available functions for clustering, simulation, and utilities.
 
 - [**Function Reference**](https://moviedo5.github.io/fda.clust/reference/index.html): Browse the complete list of available functions and their descriptions.
+
+- [**Introduction**](https://moviedo5.github.io/fda.clust/reference/index.html): Browse the complete list of available functions and their descriptions.
+-->
+
 
 ---
 
@@ -164,9 +167,6 @@ unlink("NAMESPACE")
 unlink("man", recursive = TRUE)
 
 
-# Genera la documentación y NAMESPACE de nuevo
-devtools::document()
-
 library(roxygen2)
 # setwd("C:/Users/Manuel Oviedo/github/fda.clust")
 getwd()
@@ -186,9 +186,20 @@ tools::checkRd("man/ECG200.Rd")
 tools::checkRd("man/growth_ldata.Rd")
 
 
-library(devtools)
+# Step 1: Update documentation and vignettes
+devtools::document()
+devtools::build_vignettes()
+
+# Step 2: Build pkgdown site
+pkgdown::build_site()
+
+# Step 3: Rebuild package
 devtools::build()
-devtools::check(manual = TRUE)  # problemas con miktex
+
+# Step 4: Check package
+devtools::check()
+# devtools::check(manual = TRUE) 
+
 devtools::install()
 
 
