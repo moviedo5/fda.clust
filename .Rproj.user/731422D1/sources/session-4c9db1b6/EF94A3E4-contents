@@ -1,5 +1,7 @@
 # fda.clust
 
+[![Licence](https://img.shields.io/badge/licence-GPL--2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.en.html)
+
 The `fda.clust` package provides specialized methods for clustering functional data, inspired by the functional data analysis (FDA) framework. This package offers tools for clustering, validation, and visualization of functional data. It allows users to work with real and simulated datasets for performance evaluation of clustering methods.
 
 ## **Features**
@@ -59,15 +61,6 @@ plot(ECG200$x, col = result$cluster, main = "ECG200 Clustered with fkmeans")
 
 ---
 
-## **Reference**
-
-To learn more about the functions and their usage, you can refer to the **pkgdown** documentation site. The reference section contains all the available functions for clustering, simulation, and utilities.
-
-- [**Function Reference**](https://moviedo5.github.io/fda.clust/reference/index.html): Browse the complete list of available functions and their descriptions.
-
----
-
-
 ## **Datasets**
 
 The package includes three functional datasets to test clustering methods:
@@ -108,6 +101,18 @@ To learn more about the **fda.clust** package, check the vignettes for a more co
 vignette("Introduction", package = "fda.clust")
 vignette("Simulations", package = "fda.clust")
 ```
+Details on specific functions are in the [reference
+manual](https://github.com/moviedo5/fda.usc/blob/master/docs/fda.usc-manual.pdf).
+
+
+To learn more about the functions and their usage, you can refer to the
+**pkgdown** documentation site. The reference section contains all the 
+available functions for clustering, simulation, and utilities.
+
+- [**Function Reference**](https://moviedo5.github.io/fda.clust/reference/index.html): Browse the complete list of available functions and their descriptions.
+
+---
+
 
 ---
 
@@ -208,5 +213,8 @@ library(pkgdown)
 build_site(new_process = TRUE)
 
 devtools::build_vignettes()
+#unlink("inst/doc", recursive = TRUE)
+#devtools::build_vignettes()
+
 -->
 
