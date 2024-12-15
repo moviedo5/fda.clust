@@ -9,10 +9,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE,warning=FALSE,message=F}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
-library(fda)
-library(fda.usc)
 library(fda.clust)
 ```
 
@@ -22,7 +20,7 @@ We will first extract the daily temperature and precipitation data and organize 
 
 ```{r data-preparation, fig.width=7, fig.height=5, fig.cap = "Preparation of temperature and precipitation data for clustering."}
 # Load the Canadian Weather data
-data("CanadianWeather", package = "fda")
+data("CanadianWeather")
 
 # Extract daily temperature and precipitation data and transpose them
 temp_data <- t(CanadianWeather$dailyAv[, , "Temperature.C"])

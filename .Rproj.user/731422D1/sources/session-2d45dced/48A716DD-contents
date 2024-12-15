@@ -1,0 +1,74 @@
+#' @title Hierarchical Clustering for Multivariate Functional Data
+#' 
+#' @aliases mfhclust
+#' @keywords cluster
+#' @rdname mfhclust
+#' 
+#' @description 
+#' Performs hierarchical clustering on multivariate functional data using a specified clustering method. 
+#' The distance between multivariate functional observations is calculated using the \code{metric.mfdata} function. 
+#' 
+#' @param mfdata A list of `fdata` objects, or an `mfdata` object (a list of `fdata` objects) representing multiple functional datasets.
+#' @param method A character string specifying the agglomeration method to be used. 
+#' Possible values are \code{"ward.D2"}, \code{"single"}, \code{"complete"}, \code{"average"}, 
+#' \code{"mcquitty"}, \code{"median"}, or \code{"centroid"}. Defaults to \code{"ward.D2"}.
+#' 
+#' @details 
+#' The \code{mfhclust} function applies hierarchical clustering to multivariate functional data, 
+#' using distances calculated via the \code{metric.mfdata} function. 
+#' The method for hierarchical clustering can be any of the agglomeration methods available 
+#' in \code{hclust}. 
+#' 
+#' This function is useful for clustering multivariate functional data such as time series, curves, 
+#' and other functional representations. The function returns an object of class 
+#' \code{hclust}, which can be plotted and interpreted as a dendrogram.
+#' 
+#' @return 
+#' An object of class \code{hclust}, which describes the tree produced by the hierarchical clustering process. 
+#' The object has the following components:
+#' \item{merge}{A numeric matrix describing the merge history.}
+#' \item{height}{The height at which the mergers occurred.}
+#' \item{order}{A vector giving the order of objects.}
+#' \item{labels}{The labels of the objects being clustered.}
+#' \item{call}{The call which produced the result.}
+#' \item{method}{The agglomeration method used.}
+#' 
+#' @seealso 
+#' \code{\link[stats]{hclust}} for the base R hierarchical clustering function, 
+#' and \code{\link[fda.usc]{metric.mfdata}} for the distance calculation of multivariate functional data.
+#' 
+#' 
+#' @examples 
+#' \dontrun{
+#' data(aemet, package = "fda.usc")
+#' datos <- mfdata("temp"=aemet$temp,"logprec"=aemet$logprec)
+#' # dd = metric.mfdata(datos)
+#' # Perform hierarchical clustering using the default method (ward.D2)
+#' result <- mfhclust(datos, method = "ward.D2")
+#' # Plot the dendrogram
+#' plot(result, main = "Dendrogram of Multivariate Functional Data (Ward's Method)")
+#' 
+#' # Cut the dendrogram into  clusters
+#' groups <- cutree(result, k = 3)
+#' par(mfrow=c(1,3))
+#' plot(aemet$temp,col=groups)
+#' plot(aemet$logprec,col=groups)
+#' plot(aemet$df[7:8],col=groups,asp=T)
+#' }
+#' 
+#' @export
+mfhclust <- function(mfdata, method = "ward.D2") {
+  
+  # Check if the input is an mfdata object (list of fdata objects)
+  if (!is.list(mfdata) || !all(sapply(mfdata, inherits, what = "fdata"))) {
+    stop("mfdata must be a list of fdata objects or an mfdata object.")
+  }
+  
+  # Calculate distances using metric.mfdata
+  d <- metric.mfdata(mfdata, method = "euclidean")
+  
+  # Perform hierarchical clustering using the distance matrix
+  hc <- hclust(as.dist(d), method = method)
+  
+  return(hc)
+}

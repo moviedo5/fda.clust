@@ -1,27 +1,27 @@
 {
-    "id": "547A5861",
+    "id": "EF66642C",
     "path": "C:/Users/Manuel Oviedo/github/fda.clust/vignettes/ExampleCandianWeather.Rmd",
     "project_path": "vignettes/ExampleCandianWeather.Rmd",
     "type": "r_markdown",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1734248306164.0,
+    "created": 1734304707231.0,
     "source_on_save": false,
-    "relative_order": 6,
+    "relative_order": 8,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "91,50",
-        "scrollLine": "69",
-        "last_setup_crc32": "5b69ab816478a5e"
+        "cursorPosition": "11,50",
+        "scrollLine": "0",
+        "last_setup_crc32": ""
     },
-    "folds": "80|129|85|0|\n108|90|113|0|\n",
-    "lastKnownWriteTime": 1734249462,
+    "folds": "",
+    "lastKnownWriteTime": 1734304714,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1734249462834,
+    "last_content_update": 1734304714073,
     "read_only": false,
     "read_only_alternatives": []
 }

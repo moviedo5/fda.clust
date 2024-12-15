@@ -110,9 +110,15 @@ To learn more about the functions and their usage, you can refer to the
 
 Vignettes:
 
-- [**Introductions**](https://moviedo5.github.io/fda.clust/articles/Introduction.html)
+- [**Pkg introduction**](https://moviedo5.github.io/fda.clust/articles/Introduction.html)
 
 - [**Generation of functional clusters**](https://moviedo5.github.io/fda.clust/articles/Simulations.html).
+
+- [**Example using Canadian Weather**](https://moviedo5.github.io/fda.clust/articles/ExampleCandianWeather.html).
+
+- [**Example using Spanish Weather**](https://moviedo5.github.io/fda.clust/articles/ExampleSpanishWeather.html).
+
+- [**Example multivariate FDA usingh Spanish Weather**](https://moviedo5.gmithub.io/fda.clust/articles/MultivariateSpanishWeather.html).
 
 
 ---

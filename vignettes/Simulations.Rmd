@@ -43,6 +43,7 @@ rprocKclust(t, n, process, c, s)
 ```
 
 **Arguments**:
+
 - `t`: A numeric vector defining the time points where the functional data is observed.
 - `n`: A vector specifying the number of curves in each cluster.
 - `process`: A vector defining the process type for each cluster (e.g., "sin", "cos", etc.).
@@ -51,7 +52,7 @@ rprocKclust(t, n, process, c, s)
 
 ### **Example**
 
-```{r generate-rprocKclust, fig.width=7, fig.height=5, fig.cap = "Functional data"}
+```{r generate-rprocKclust, fig.width=7, fig.height=5, fig.cap = "Functional data",warning=FALSE,message=F}
 library(fda.clust)
 
 set.seed(123)
