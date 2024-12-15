@@ -1,10 +1,10 @@
 ---
-title: "Clustering AEMET Data (Spanish wheather)"
+title: "Example Spanish Weather"
 author: "Manuel Oviedo (UDC), Manuel Febrero (USC)"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Clustering AEMET Data (Spanish wheather)}
+  %\VignetteIndexEntry{Example Spanish Weather}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

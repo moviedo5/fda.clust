@@ -219,7 +219,7 @@ devtools::build()
 devtools::check()
 # devtools::check(manual = TRUE) 
 
-
+devtools::install()
 
 #  setwd("C:/Users/Manuel Oviedo/github")
 build_manual(pkg = "fda.clust", path = NULL)

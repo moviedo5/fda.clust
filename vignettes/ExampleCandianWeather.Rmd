@@ -1,10 +1,10 @@
 ---
-title: "Canadian Weather Data"
-author: "fda.clust Development Team"
+title: "Example Canadian Weather"
+author: "Manuel Oviedo (UDC), Manuel Febrero (USC)"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Canadian Weather Data}
+  %\VignetteIndexEntry{Example Canadian Weather}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

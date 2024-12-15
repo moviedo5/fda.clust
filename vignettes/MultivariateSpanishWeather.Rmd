@@ -1,10 +1,10 @@
 ---
-title: "Clustering Multivariate Functional Data"
-author: "fda.clust Development Team"
+title: "Example Multivariate Functional Data"
+author: "Manuel Oviedo (UDC), Manuel Febrero (USC)"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Clustering Multivariate Functional Data}
+  %\VignetteIndexEntry{Example Multivariate Functional Data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
