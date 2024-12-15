@@ -101,20 +101,18 @@ To learn more about the **fda.clust** package, check the vignettes for a more co
 vignette("Introduction", package = "fda.clust")
 vignette("Simulations", package = "fda.clust")
 ```
-<!--
+
+
 Details on specific functions are in the [reference
-manual](https://github.com/moviedo5/fda.clust/blob/master/docs/fda.clust-manual.pdf).
+manual](https://moviedo5.github.io/fda.clust/index.html).
 To learn more about the functions and their usage, you can refer to the
-**pkgdown** documentation site. The reference section contains all the 
-available functions for clustering, simulation, and utilities.
+**pkgdown** documentation site. 
 
-- [**Function Reference**](https://moviedo5.github.io/fda.clust/reference/index.html): Browse the complete list of available functions and their descriptions.
+Vignettes:
 
-- [**Introduction**](https://moviedo5.github.io/fda.clust/reference/index.html): Browse the complete list of available functions and their descriptions.
--->
+- [**Introductions**](https://moviedo5.github.io/fda.clust/articles/Introduction.html)
 
-
----
+- [**Generation of functional clusters**](https://moviedo5.github.io/fda.clust/articles/Simulations.html).
 
 
 ---
@@ -176,6 +174,8 @@ devtools::document()
 library(tools)
 tools::checkRd("man/fdbscan.Rd")
 tools::checkRd("man/fmeanshift.Rd")
+tools::checkRd("man/mfkmeans.Rd")
+
 tools::checkRd("man/fhclust.Rd")
 tools::checkRd("man/fkmeans.Rd")
 #tools::checkRd("man/rproc2mu.Rd")
@@ -185,9 +185,16 @@ tools::checkRd("man/ECG5000.Rd")
 tools::checkRd("man/ECG200.Rd")
 tools::checkRd("man/growth_ldata.Rd")
 
+
+remove.packages("fda.clust") 
+devtools::install()
+# library(fda.clust)
+# exists("mfkmeans", where = asNamespace("fda.clust"))
+#system.file(package = "fda.clust")
+
 # 1. Inicializar la web del paquete
 library(pkgdown)
-pkgdown::init_site()
+#pkgdown::init_site()
 
 # 2. Construir la web
 pkgdown::build_site()
@@ -206,11 +213,11 @@ devtools::build()
 devtools::check()
 # devtools::check(manual = TRUE) 
 
-devtools::install()
 
 
 #  setwd("C:/Users/Manuel Oviedo/github")
 build_manual(pkg = "fda.clust", path = NULL)
+
 unlink(file.path(tempdir(), "lastMiKTeXException"))
 unlink(tempdir(), recursive = TRUE)
 

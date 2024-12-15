@@ -1,0 +1,27 @@
+{
+    "id": "DC241565",
+    "path": "C:/Users/Manuel Oviedo/github/fda.clust/vignettes/Simulations.Rmd",
+    "project_path": "vignettes/Simulations.Rmd",
+    "type": "r_markdown",
+    "hash": "3098857311",
+    "contents": "",
+    "dirty": false,
+    "created": 1734248993114.0,
+    "source_on_save": false,
+    "relative_order": 8,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "53,83",
+        "scrollLine": "50",
+        "last_setup_crc32": "5b69ab81bb338d19"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1734249210,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1734249210415,
+    "read_only": false,
+    "read_only_alternatives": []
+}

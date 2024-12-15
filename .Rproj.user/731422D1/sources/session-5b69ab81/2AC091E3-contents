@@ -1,0 +1,139 @@
+---
+title: "Clustering Canadian Weather Data"
+author: "Manuel Oviedo (UDC), Manuel Febrero (USC)"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Clustering Canadian Weather Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(fda)
+library(fda.usc)
+library(fda.clust)
+library(maps)
+```
+
+## **Data Preparation**
+
+We will first extract the daily temperature and precipitation data and organize it as **fdata** objects. We will also prepare a data frame containing metadata for each station, such as its name, region, coordinates, and basic descriptive statistics (mean, min, and max) for temperature and precipitation.
+
+```{r data-preparation}
+# Load the Canadian Weather data
+data("CanadianWeather", package = "fda")
+
+# Extract daily temperature and precipitation data and transpose them
+temp_data <- t(CanadianWeather$dailyAv[, , "Temperature.C"])
+prec_data <- t(CanadianWeather$dailyAv[, , "Precipitation.mm"])
+
+# Create fdata objects for temperature and precipitation
+n <- nrow(temp_data)
+p <- ncol(temp_data)
+argvals <- seq(1, 365, length.out = p)
+temp <- fdata(temp_data, argvals = argvals)
+prec <- fdata(prec_data, argvals = argvals)
+
+# Calculate descriptive statistics for temperature and precipitation
+station_names <- names(CanadianWeather$region)
+coordinates <- CanadianWeather$coordinates
+corrected_longitude <- ifelse(coordinates[, 2] > 180, coordinates[, 2] - 360, coordinates[, 2])
+
+mean_temp <- rowMeans(temp$data, na.rm = TRUE)
+min_temp <- apply(temp$data, 1, min, na.rm = TRUE)
+max_temp <- apply(temp$data, 1, max, na.rm = TRUE)
+mean_prec <- rowMeans(prec$data, na.rm = TRUE)
+min_prec <- apply(prec$data, 1, min, na.rm = TRUE)
+max_prec <- apply(prec$data, 1, max, na.rm = TRUE)
+
+# Create a data frame with descriptive statistics
+df <- data.frame(
+  Station = station_names,
+  Region = CanadianWeather$region,
+  MeanTemp = mean_temp,
+  MinTemp = min_temp,
+  MaxTemp = max_temp,
+  MeanPrec = mean_prec,
+  MinPrec = min_prec,
+  MaxPrec = max_prec,
+  Latitude = coordinates[, 1],
+  Longitude = corrected_longitude
+)
+
+# Create ldata object
+weather <- ldata(
+  df = df,
+  temp = temp,
+  prec = prec
+)
+```
+
+## **Visualizing Weather Stations on the Map**
+
+We plot the map of Canada, indicating the location of each weather station and its name.
+
+```{r plot-map}
+plot(NA, xlim = c(-150, -50), ylim = c(40, 90), type = "n", xlab = "Longitude", ylab = "Latitude", main = "Weather Stations in Canada")
+map("world", regions = "Canada", fill = TRUE, col = "lightblue", add = TRUE)
+points(df$Longitude, df$Latitude, pch = 21, bg = "red", col = "black", cex = 1.2)
+text(df$Longitude, df$Latitude, labels = df$Station, pos = 4, cex = 0.7)
+```
+
+## **Clustering Functional Data**
+
+We will now cluster the temperature data using algorithms from **fda.clust**, including **fKmeans**, **fDBSCAN**, and **fHclust**.
+
+### **1. Clustering using fKmeans**
+
+```{r fkmeans-clustering}
+# Apply fKmeans to cluster temperature curves
+set.seed(1234) 
+kmeans_result <- fkmeans(temp, ncl = 2,
+                          dfunc = func.med.mode)
+plot(temp, col = kmeans_result$cluster,
+     main = "fKmeans Clustering of Temperature Data")
+
+# Evaluate clustering using fclust.measures
+silhouette_score <- fclust.measures(temp,index = "silhouette", clusters = kmeans_result$cluster)
+cat("Silhouette Score for fKmeans:", silhouette_score, "\n")
+```
+
+### **2. Clustering using fDBSCAN**
+
+```{r fdbscan-clustering}
+# Optimize parameters for fDBSCAN
+set.seed(123)
+optimal_params <- optim.fdbscan(temp)$optimal
+
+# Apply fDBSCAN with optimal parameters
+dbscan_result <- fdbscan(temp,
+                  eps = optimal_params$eps,
+                  minPts = optimal_params$minPts)
+
+# Plot the clustering result
+plot(temp, col = dbscan_result$cluster+1, main = "fDBSCAN Clustering of Temperature Data")
+
+# Evaluate clustering using fclust.measures
+db_index <- fclust.measures(temp,
+          clusters = dbscan_result$cluster,
+          index = "db")
+cat("Davies-Bouldin Index for fDBSCAN:", db_index, "\n")
+```
+
+### **3. Clustering using fHclust**
+
+```{r fhclust-clustering}
+# Apply hierarchical clustering to temperature data
+dist_matrix <- metric.lp(temp$data)
+hclust_result <- fhclust(dist_matrix, method = "ward.D2")
+plot(hclust_result, labels = df$Station, main = "Hierarchical Clustering Dendrogram")
+
+# Evaluate clustering using fclust.measures
+dunn_index <- fclust.measures(temp,index = "dunn",
+              clusters = cutree(hclust_result, k = 3)
+            )
+cat("Dunn Index for fHclust:", dunn_index, "\n")
+```
+

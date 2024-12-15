@@ -1,0 +1,1 @@
+"0","plot(aemet$df[,7:8],col=mfkmeans_result$cluster,asp=T)"

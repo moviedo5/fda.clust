@@ -1,0 +1,3 @@
+"0",""
+"0","# Plot the clustering result for temperature"
+"0","plot(temp, col = kmeans_temp$cluster, main = ""fKmeans Clustering of Temperature Data"")"

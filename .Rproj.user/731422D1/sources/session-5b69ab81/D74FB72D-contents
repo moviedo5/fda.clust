@@ -1,0 +1,97 @@
+---
+title: "Clustering AEMET Data (Spanish wheather)"
+author: "Manuel Oviedo (UDC), Manuel Febrero (USC)"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Clustering AEMET Data (Spanish wheather)}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(fda.clust)
+```
+
+## **Data Preparation**
+
+We will extract the temperature and precipitation data from the **AEMET** dataset available in the **fda.usc** package. This dataset is already in **ldata** format, so we will directly work with it.
+
+```{r data-preparation}
+# Load the AEMET data
+data("aemet")
+
+# Extract the temperature (temp) and precipitation (prec) data
+weather <- aemet  # Already an ldata object
+
+# Extract the multivariate part of ldata
+df <- weather$df
+
+# Extract the fdata components
+temp <- weather$temp
+prec <- weather$prec
+```
+
+## **Clustering Functional Data using fDBSCAN**
+
+We will now cluster the temperature data using **fDBSCAN** from **fda.clust**. We use the optimization function from **fda.clust** to select appropriate values for `eps` and `minPts`.
+
+```{r fdbscan-clustering}
+# Optimize parameters for fDBSCAN
+set.seed(123)
+optimal_params <- optim.fdbscan(temp,
+                    eps=2^(-4:5),
+                    minPts=seq(5,55,by=5))$optimal
+set.seed(123)
+# Apply fDBSCAN with optimal parameters
+dbscan_result <- fdbscan(temp, eps = optimal_params$eps, minPts = optimal_params$minPts)
+
+# Plot the clustering result
+plot(temp, col = dbscan_result$cluster + 1, main = "fDBSCAN Clustering of Temperature Data")
+
+# Evaluate clustering using fclust.measures
+db_index <- fclust.measures( temp, index = "db", 
+                             clusters=dbscan_result$cluster)
+cat("Davies-Bouldin Index for fDBSCAN:", db_index, "\n")
+```
+
+## **Clustering Functional Data using fKmeans**
+
+We will now cluster the temperature data using **fKmeans** from **fda.clust**. We use **fKmeans** with 2 clusters.
+
+```{r fkmeans-clustering}
+# Apply fKmeans to cluster temperature curves
+set.seed(1234) 
+kmeans_result <- fkmeans(temp, ncl = 3, dfunc = func.med.mode)
+table(kmeans_result$cluster)
+# Plot the clustering result
+plot(temp, col = kmeans_result$cluster, main = "fKmeans Clustering of Temperature Data")
+
+# Evaluate clustering using fclust.measures
+silhouette_score <- fclust.measures(temp, 
+                clusters = kmeans_result$cluster,
+                index = "silhouette")
+cat("Silhouette Score for fKmeans:", silhouette_score, "\n")
+```
+
+## **Clustering Functional Data using fHclust**
+
+We will now cluster the temperature data using **fHclust** from **fda.clust**. We use hierarchical clustering with the **Ward's method**.
+
+```{r fhclust-clustering}
+# Calculate the distance matrix using metric.lp
+rownames(temp$data)<-substr(rownames(temp$data),1,10)
+dist_matrix <- metric.lp(temp)
+
+# Apply hierarchical clustering to temperature data
+hclust_result <- fhclust(dist_matrix, method = "ward.D2")
+
+# Plot the dendrogram
+plot(hclust_result, labels = df$Station, main = "Hierarchical Clustering Dendrogram")
+
+# Evaluate clustering using fclust.measures
+dunn_index <- fclust.measures(temp, index = "dunn",  clusters = cutree(hclust_result, k = 3))
+cat("Dunn Index for fHclust:", dunn_index, "\n")
+```
+

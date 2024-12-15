@@ -1,0 +1,3 @@
+"0",""
+"0","# Plot the clustering result for log-precipitation"
+"0","plot(logprec, col = kmeans_logprec$cluster, main = ""fKmeans Clustering of Log-Precipitation Data"")"

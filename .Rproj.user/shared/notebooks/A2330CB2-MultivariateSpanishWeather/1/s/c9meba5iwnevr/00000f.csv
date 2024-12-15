@@ -1,0 +1,3 @@
+"0","# Apply fKmeans to the temperature data (single functional variable)"
+"0","set.seed(1234)"
+"0","kmeans_temp <- fkmeans(temp, ncl = 3)"

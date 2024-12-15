@@ -19,6 +19,7 @@ reference:
       - "fdbscan"
       - "fmeanshift"
       - "fhclust"
+      - "mfkmeans"
 
   - title: "Cluster Validation and Measures"
     contents:

@@ -1,7 +1,10 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://moviedo5.github.io/fda.clust/404.html</loc></url>
+<url><loc>https://moviedo5.github.io/fda.clust/articles/ExampleCandianWeather.html</loc></url>
+<url><loc>https://moviedo5.github.io/fda.clust/articles/ExampleSpanishWeather.html</loc></url>
 <url><loc>https://moviedo5.github.io/fda.clust/articles/index.html</loc></url>
 <url><loc>https://moviedo5.github.io/fda.clust/articles/Introduction.html</loc></url>
+<url><loc>https://moviedo5.github.io/fda.clust/articles/MultivariateSpanishWeather.html</loc></url>
 <url><loc>https://moviedo5.github.io/fda.clust/articles/Simulations.html</loc></url>
 <url><loc>https://moviedo5.github.io/fda.clust/authors.html</loc></url>
 <url><loc>https://moviedo5.github.io/fda.clust/index.html</loc></url>
@@ -16,6 +19,7 @@
 <url><loc>https://moviedo5.github.io/fda.clust/reference/fmeanshift.html</loc></url>
 <url><loc>https://moviedo5.github.io/fda.clust/reference/growth_ldata.html</loc></url>
 <url><loc>https://moviedo5.github.io/fda.clust/reference/index.html</loc></url>
+<url><loc>https://moviedo5.github.io/fda.clust/reference/mfkmeans.html</loc></url>
 <url><loc>https://moviedo5.github.io/fda.clust/reference/rprocKclust.html</loc></url>
 <url><loc>https://moviedo5.github.io/fda.clust/reference/rprocKmu.html</loc></url>
 </urlset>

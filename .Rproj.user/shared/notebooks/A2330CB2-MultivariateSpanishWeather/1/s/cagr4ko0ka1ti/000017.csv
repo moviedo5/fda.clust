@@ -1,0 +1,4 @@
+"0",""
+"0","silhouette_2 <- fclust.measures(logprec, "
+"0","      clusters = kmeans_logprec$cluster, index = ""silhouette"")"
+"0",""

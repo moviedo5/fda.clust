@@ -1,0 +1,106 @@
+---
+title: "Clustering Multivariate Functional Data"
+author: "fda.clust Development Team"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Clustering Multivariate Functional Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(fda.clust)
+```
+
+## **Data Preparation**
+
+We will extract the temperature and precipitation data from the **AEMET** dataset available in the **fda.usc** package. We will then create an **mfdata** object using the temperature (`temp`) and the log-transformed precipitation (`logprec`).
+
+```{r data-preparation}
+# Load the AEMET data
+data("aemet", package = "fda.usc")
+
+# Create the mfdata object with two functional datasets (temperature and log-precipitation)
+mfdata <- mfdata(aemet$temp,  aemet$logprec)
+names(mfdata ) <- c("temp", "logprec")
+
+# Extract the individual functional datasets
+temp <- aemet$temp
+logprec <- aemet$logprec
+```
+
+---
+  
+## **Clustering Functional Data Using fKmeans (Temperature Only)**
+  
+  We will first cluster the temperature data (`temp`) using **fKmeans** with 3 clusters. We will visualize the resulting clusters and analyze the cluster assignments.
+
+```{r fkmeans-temp, fig.width=7, fig.height=5, fig.cap = "Clustering of temperature using kmeans."}
+# Apply fKmeans to the temperature data (single functional variable)
+set.seed(1234)
+kmeans_temp <- fkmeans(temp, ncl = 3)
+
+# Plot the clustering result for temperature
+plot(temp, col = kmeans_temp$cluster, main = "fKmeans Clustering of Temperature Data")
+
+silhouette_1 <- fclust.measures(temp, 
+    clusters = kmeans_temp$cluster, index = "silhouette")
+```
+
+---
+  
+## **Clustering Functional Data Using fKmeans (Log-Precipitation Only)**
+  
+  We now cluster the log-transformed precipitation data (`logprec`) using **fKmeans** with 3 clusters. We will visualize the resulting clusters and analyze the cluster assignments.
+
+```{r fkmeans-logprec, fig.width=7, fig.height=5, fig.cap = "Clustering of log precipitation using kmeans."}
+# Apply fKmeans to the log-precipitation data (single functional variable)
+set.seed(1234)
+kmeans_logprec <- fkmeans(logprec, ncl = 3)
+
+# Plot the clustering result for log-precipitation
+plot(logprec, col = kmeans_logprec$cluster, main = "fKmeans Clustering of Log-Precipitation Data")
+
+silhouette_2 <- fclust.measures(logprec, 
+      clusters = kmeans_logprec$cluster, index = "silhouette")
+
+```
+
+---
+  
+## **Clustering Multivariate Functional Data Using mfKmeans**
+  
+We now cluster the combined multivariate functional data (`temp` and `logprec`) using **mfKmeans** with 3 clusters. We will visualize the resulting clusters and analyze the cluster assignments.
+
+```{r mfkmeans, fig.width=7, fig.height=5, fig.cap = "Clustering of temperature and log precipitation using kmeans."}
+# Apply mfKmeans to the combined multivariate functional data (temperature + log-precipitation)
+set.seed(1234)
+mfkmeans_result <- mfkmeans(mfdata, ncl = 3)
+
+silhouette_12 <- fclust.measures(mfdata, metric=metric.mfdata, 
+          clusters =mfkmeans_result$cluster, index = "silhouette")
+
+silhouette_1
+silhouette_2
+silhouette_12
+# Plot the clustering result for the combined mfdata
+plot(mfdata, col = mfkmeans_result$cluster)
+# table(  kmeans_temp$cluster ,kmeans_logprec$cluster)
+# table(  kmeans_temp$cluster)
+# table(  kmeans_logprec$cluster)
+# 
+# table( mfkmeans_result$cluster)
+# #  Comparison of Clustering Results 
+# table(kmeans_temp$cluster, mfkmeans_result$cluster)
+# table(kmeans_temp$cluster, mfkmeans_result$cluster)
+# plot(datos,col=result$cluster)
+# plot(datos,col=mfkmeans_result$cluster)
+# par(mfrow=c(1,1))
+# plot(aemet$df[,7:8],col=mfkmeans_result$cluster,asp=T)
+```
+
+---
+  
+## **Work in progress**
