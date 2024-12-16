@@ -114,7 +114,7 @@ Vignettes:
 
 - [**Generation of functional clusters**](https://moviedo5.github.io/fda.clust/articles/Simulations.html).
 
-- [**Example using Canadian Weather**](https://moviedo5.github.io/fda.clust/articles/ExampleCandianWeather.html).
+- [**Example using Canadian Weather**](https://moviedo5.github.io/fda.clust/articles/ExampleCanadianWeather.html).
 
 - [**Example using Spanish Weather**](https://moviedo5.github.io/fda.clust/articles/ExampleSpanishWeather.html).
 
@@ -219,6 +219,7 @@ devtools::build()
 devtools::check()
 # devtools::check(manual = TRUE) 
 
+devtools::install()
 
 
 #  setwd("C:/Users/Manuel Oviedo/github")

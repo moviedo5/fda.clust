@@ -3,24 +3,24 @@
     "path": "C:/Users/Manuel Oviedo/github/fda.clust/README.md",
     "project_path": "README.md",
     "type": "markdown",
-    "hash": "0",
+    "hash": "396234360",
     "contents": "",
-    "dirty": true,
+    "dirty": false,
     "created": 1734089364790.0,
     "source_on_save": false,
     "relative_order": 1,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "221,0",
-        "scrollLine": "212"
+        "cursorPosition": "171,0",
+        "scrollLine": "161"
     },
     "folds": "",
-    "lastKnownWriteTime": 1734304993,
+    "lastKnownWriteTime": 1734306915,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1734306603366,
+    "last_content_update": 1734306915527,
     "read_only": false,
     "read_only_alternatives": []
 }
